@@ -17,7 +17,7 @@ if($TimestampServer){
  if(!$signingCertificate -or ![uri]::TryCreate($TimestampServer,[UriKind]::Absolute,[ref]$timestampUri) -or $timestampUri.Scheme -ne 'https'){throw 'Timestamp server requires signing and an absolute HTTPS URI'}
 }
 $dotnet=Join-Path $root '.tools/dotnet/dotnet.exe'
-if(!(Test-Path -LiteralPath $dotnet)){throw 'Run scripts/bootstrap.ps1 to install the pinned SDK first'}
+if(!(Test-Path -LiteralPath $dotnet)){$dotnet=(Get-Command dotnet -ErrorAction Stop).Source}
 $stamp=[DateTime]::UtcNow.ToString('yyyyMMdd-HHmmss')+'-'+[Guid]::NewGuid().ToString('N').Substring(0,8)
 $release=Join-Path $root ('artifacts/releases/DlutTimetable-'+$Version+'-win-x64-'+$stamp)
 $worker=Join-Path $root ('artifacts/release-staging/worker-'+$stamp)

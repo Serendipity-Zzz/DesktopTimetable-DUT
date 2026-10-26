@@ -1,0 +1,39 @@
+name: Release P0 preview
+
+on:
+  push:
+    tags:
+      - v0.26.0-dev
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.402
+      - name: Build
+        run: |
+          dotnet restore DlutTimetable.slnx --locked-mode
+          if ($LASTEXITCODE -ne 0) { throw 'Restore failed' }
+          dotnet build DlutTimetable.slnx -c Release --no-restore --nologo
+          if ($LASTEXITCODE -ne 0) { throw 'Build failed' }
+      - name: Package
+        shell: pwsh
+        run: ./scripts/publish-windows.ps1 -Version 0.26.0-dev
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: pwsh
+        run: |
+          $release = Get-Content docs/validation/current-release.json -Raw | ConvertFrom-Json
+          $notes = 'docs/release-notes/0.26.0-dev.md'
+          if (!(Test-Path $release.archive) -or !(Test-Path ($release.archive + '.sha256')) -or !(Test-Path $notes)) {
+            throw 'Release package, checksum, or notes are missing.'
+          }
+          gh release create $env:GITHUB_REF_NAME $release.archive ($release.archive + '.sha256') --title '0.26.0-dev' --notes-file $notes --prerelease
+          if ($LASTEXITCODE -ne 0) { throw 'GitHub Release creation failed.' }
