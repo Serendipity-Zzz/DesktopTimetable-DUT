@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0-windows</TargetFramework><OutputType>WinExe</OutputType><UseWPF>true</UseWPF></PropertyGroup>
+  <ItemGroup>
+    <Using Remove="System.Windows.Forms" /><Using Remove="System.Drawing" />
+    <Using Include="System.IO" />
+    <ProjectReference Include="../DlutTimetable.Contracts/DlutTimetable.Contracts.csproj" />
+    <ProjectReference Include="../DlutTimetable.Domain/DlutTimetable.Domain.csproj" />
+    <Compile Include="../DlutTimetable.Infrastructure/Academic/*.cs" Link="Academic/%(Filename)%(Extension)" />
+    <Compile Include="../DlutTimetable.Infrastructure/DatasetJson.cs" Link="Academic/DatasetJson.cs" />
+    <PackageReference Include="Microsoft.Web.WebView2" />
+  </ItemGroup>
+</Project>

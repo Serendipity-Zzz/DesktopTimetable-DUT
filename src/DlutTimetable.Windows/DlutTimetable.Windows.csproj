@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0-windows10.0.19041.0</TargetFramework><UseWPF>true</UseWPF></PropertyGroup>
+  <ItemGroup><Using Remove="System.Windows.Forms" /><Using Remove="System.Drawing" /></ItemGroup>
+  <ItemGroup><ProjectReference Include="../DlutTimetable.Application/DlutTimetable.Application.csproj" /></ItemGroup>
+  <ItemGroup><PackageReference Include="Vortice.Direct3D11" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Materials/LiquidEdge.hlsl" /></ItemGroup>
+</Project>

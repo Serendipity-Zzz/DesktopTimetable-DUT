@@ -1,0 +1,44 @@
+# IDE and local tooling
+.vs/
+.idea/
+.tools/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET build and test output
+**/bin/
+**/obj/
+**/TestResults/
+**/artifacts/
+*.pdb
+*.cache
+*.snupkg
+*.nupkg
+
+# Local app data, diagnostics, and release packages
+artifacts/
+auth-profile/
+*.db
+*.db-shm
+*.db-wal
+*.log
+docs/validation/
+docs/AS-BUILT.md
+docs/DELIVERY.md
+docs/RESOURCE-MEASUREMENT.md
+evidence/
+research/
+spikes/
+work/
+
+# Generated planning previews and local task boards
+/index.html
+/tasks.*
+/README.html
+/PRD-*.html
+/SSD-*.html
+/IMPLEMENTATION.md
+/PRD-*.md
+/SSD-*.md

@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DLUT Desktop Timetable exchange 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "synthetic",
+    "accountId",
+    "adapterVersion",
+    "source",
+    "term",
+    "coverage",
+    "fetchedAt",
+    "periods",
+    "meetings"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "synthetic": {
+      "type": "boolean"
+    },
+    "accountId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "adapterVersion": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "term": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "schoolYear",
+        "termCode",
+        "firstTeachingMonday",
+        "timezone",
+        "weekCount"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "schoolYear": {
+          "type": "string"
+        },
+        "termCode": {
+          "type": "string"
+        },
+        "firstTeachingMonday": {
+          "type": "string",
+          "format": "date"
+        },
+        "timezone": {
+          "const": "Asia/Shanghai"
+        },
+        "weekCount": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "weeks"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "TERM",
+            "WEEK",
+            "DAY"
+          ]
+        },
+        "weeks": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "DAY"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "date"
+            ]
+          }
+        }
+      ]
+    },
+    "fetchedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "periods": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "start",
+          "end"
+        ],
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "start": {
+            "type": "string",
+            "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"
+          },
+          "end": {
+            "type": "string",
+            "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"
+          }
+        }
+      }
+    },
+    "meetings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "courseId",
+          "name",
+          "teacherNames",
+          "location",
+          "weekday",
+          "periodStart",
+          "periodEnd",
+          "weeks"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "courseId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "teacherNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "location": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "weekday": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 7
+          },
+          "periodStart": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "periodEnd": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "weeks": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "verifiedEmpty": {
+      "type": "boolean",
+      "default": false,
+      "description": "An explicit confirmation is required for successful empty coverage."
+    }
+  },
+  "description": "Non-empty research 1.0 files remain supported. Empty datasets require verifiedEmpty=true; cross-field validation is performed by DatasetValidator."
+}

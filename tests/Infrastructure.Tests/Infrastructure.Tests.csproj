@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><IsPackable>false</IsPackable><IsTestProject>true</IsTestProject></PropertyGroup>
+  <ItemGroup>
+    <None Include="../../scripts/uninstall-cleanup.ps1" Link="uninstall-cleanup.ps1" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../fixtures/dlut/academic-observed-periods.json" Link="fixtures/academic-observed-periods.json" CopyToOutputDirectory="PreserveNewest" />
+    <Compile Include="../Domain.Tests/Samples.cs" Link="Samples.cs" />
+    <Compile Include="../Application.Tests/ManualClock.cs" Link="ManualClock.cs" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+    <ProjectReference Include="../../src/DlutTimetable.Infrastructure/DlutTimetable.Infrastructure.csproj" />
+    <Using Include="Xunit" />
+  </ItemGroup>
+</Project>

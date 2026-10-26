@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DlutTimetable.Application/DlutTimetable.Application.csproj" />
+    <Project Path="src/DlutTimetable.AuthWorker/DlutTimetable.AuthWorker.csproj" />
+    <Project Path="src/DlutTimetable.Contracts/DlutTimetable.Contracts.csproj" />
+    <Project Path="src/DlutTimetable.Desktop/DlutTimetable.Desktop.csproj" />
+    <Project Path="src/DlutTimetable.Domain/DlutTimetable.Domain.csproj" />
+    <Project Path="src/DlutTimetable.Infrastructure/DlutTimetable.Infrastructure.csproj" />
+    <Project Path="src/DlutTimetable.Windows/DlutTimetable.Windows.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Application.Tests/Application.Tests.csproj" />
+    <Project Path="tests/Domain.Tests/Domain.Tests.csproj" />
+    <Project Path="tests/Infrastructure.Tests/Infrastructure.Tests.csproj" />
+    <Project Path="tests/Windows.IntegrationTests/Windows.IntegrationTests.csproj" />
+  </Folder>
+</Solution>

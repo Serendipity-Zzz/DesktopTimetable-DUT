@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework><OutputType>WinExe</OutputType><UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets/DlutTimetable.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Assets/DlutTimetable.ico" CopyToOutputDirectory="PreserveNewest" />
+    <EmbeddedResource Include="../../scripts/uninstall-cleanup.ps1" LogicalName="DlutTimetable.UninstallCleanup.ps1" />
+    <Content Include="../../fixtures/dlut/synthetic-term.json" Link="fixtures/synthetic-term.json" CopyToOutputDirectory="PreserveNewest" />
+    <ProjectReference Include="../DlutTimetable.Infrastructure/DlutTimetable.Infrastructure.csproj" />
+    <ProjectReference Include="../DlutTimetable.Windows/DlutTimetable.Windows.csproj" />
+    <ProjectReference Include="../DlutTimetable.AuthWorker/DlutTimetable.AuthWorker.csproj" ReferenceOutputAssembly="false" PrivateAssets="all" />
+  </ItemGroup>
+  <Target Name="CopyAuthWorker" AfterTargets="Build" Condition="'$(RuntimeIdentifier)' == ''">
+    <ItemGroup><AuthWorkerFiles Include="../DlutTimetable.AuthWorker/bin/$(Configuration)/net10.0-windows/**/*"
+      Exclude="../DlutTimetable.AuthWorker/bin/$(Configuration)/net10.0-windows/win-*/**/*;../DlutTimetable.AuthWorker/bin/$(Configuration)/net10.0-windows/publish/**/*" /></ItemGroup>
+    <Copy SourceFiles="@(AuthWorkerFiles)" DestinationFiles="@(AuthWorkerFiles->'$(OutDir)AuthWorker/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

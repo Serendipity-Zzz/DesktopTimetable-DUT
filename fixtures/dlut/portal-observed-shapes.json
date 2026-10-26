@@ -1,0 +1,48 @@
+{
+  "evidence": "Real campus-network portal response shapes captured after user viewed their own timetable; personal values removed. Not a normalized timetable or proof of coverage.",
+  "Version": 1,
+  "CreatedUtc": "2026-10-23T08:40:45.7469131+00:00",
+  "Responses": [
+    {
+      "Host": "apim.dlut.edu.cn",
+      "Route": "/key_07DE0419D35A/key_8D76C4BB7777/key_F1E36ADC105F/key_44E54724B670",
+      "Method": "POST",
+      "Status": 200,
+      "QueryNames": [],
+      "ShapeJson": "{\"code\":\"\\u003Cnumber\\u003E\",\"msg\":\"\\u003Cstring\\u003E\",\"data\":{\"date\":\"\\u003Cstring\\u003E\",\"key_4B8510347B4A\":\"\\u003Cstring\\u003E\",\"schoolYear\":\"\\u003Cstring\\u003E\",\"key_FB49E0071F35\":\"\\u003Cstring\\u003E\",\"semester\":\"\\u003Cstring\\u003E\"},\"key_BC6F16EA112C\":null}",
+      "Bytes": 151,
+      "Truncated": false,
+      "MaskedNames": 7,
+      "MediaType": "application/json",
+      "Outcome": "Json"
+    },
+    {
+      "Host": "apim.dlut.edu.cn",
+      "Route": "/key_07DE0419D35A/key_8D76C4BB7777/key_F1E36ADC105F/key_22F4F7670EDB",
+      "Method": "POST",
+      "Status": 200,
+      "QueryNames": [],
+      "ShapeJson": "{\"code\":\"\\u003Cnumber\\u003E\",\"msg\":\"\\u003Cstring\\u003E\",\"data\":{\"arrayCount\":74,\"samples\":[{\"SKZC\":\"\\u003Cstring\\u003E\",\"key_78AED1D2715C\":\"\\u003Cstring\\u003E\",\"key_0D2C53864B02\":\"\\u003Cstring\\u003E\",\"KCMC\":\"\\u003Cstring\\u003E\",\"XH\":\"\\u003Cstring\\u003E\",\"key_51BD9967C8CB\":\"\\u003Cstring\\u003E\",\"KCH\":\"\\u003Cstring\\u003E\",\"key_A6357BD1AF0E\":\"\\u003Cstring\\u003E\",\"key_D33C89B59072\":\"\\u003Cstring\\u003E\",\"key_7A3D79E6B933\":\"\\u003Cstring\\u003E\",\"key_5A95D874742E\":\"\\u003Cnumber\\u003E\",\"key_2B866E9B0877\":\"\\u003Cstring\\u003E\",\"key_5AEE5FC07169\":\"\\u003Cnumber\\u003E\",\"JSXM\":\"\\u003Cstring\\u003E\"},{\"SKZC\":\"\\u003Cstring\\u003E\",\"key_78AED1D2715C\":\"\\u003Cstring\\u003E\",\"key_0D2C53864B02\":\"\\u003Cstring\\u003E\",\"KCMC\":\"\\u003Cstring\\u003E\",\"XH\":\"\\u003Cstring\\u003E\",\"key_51BD9967C8CB\":\"\\u003Cstring\\u003E\",\"KCH\":\"\\u003Cstring\\u003E\",\"key_A6357BD1AF0E\":\"\\u003Cstring\\u003E\",\"key_D33C89B59072\":\"\\u003Cstring\\u003E\",\"key_7A3D79E6B933\":\"\\u003Cstring\\u003E\",\"key_5A95D874742E\":\"\\u003Cnumber\\u003E\",\"key_2B866E9B0877\":\"\\u003Cstring\\u003E\",\"key_5AEE5FC07169\":\"\\u003Cnumber\\u003E\",\"JSXM\":\"\\u003Cstring\\u003E\"}]},\"key_BC6F16EA112C\":null}",
+      "Bytes": 20587,
+      "Truncated": false,
+      "MaskedNames": 23,
+      "MediaType": "application/json",
+      "Outcome": "Json"
+    },
+    {
+      "Host": "apim.dlut.edu.cn",
+      "Route": "/key_07DE0419D35A/key_8D76C4BB7777/key_F1E36ADC105F/key_69B59D90ED89",
+      "Method": "POST",
+      "Status": 200,
+      "QueryNames": [],
+      "ShapeJson": "{\"code\":\"\\u003Cnumber\\u003E\",\"msg\":\"\\u003Cstring\\u003E\",\"data\":{\"arrayCount\":15,\"samples\":[{\"SKZC\":\"\\u003Cstring\\u003E\",\"key_78AED1D2715C\":\"\\u003Cstring\\u003E\",\"key_0D2C53864B02\":\"\\u003Cstring\\u003E\",\"KCMC\":\"\\u003Cstring\\u003E\",\"XH\":\"\\u003Cstring\\u003E\",\"key_51BD9967C8CB\":\"\\u003Cstring\\u003E\",\"KCH\":\"\\u003Cstring\\u003E\",\"key_A6357BD1AF0E\":\"\\u003Cstring\\u003E\",\"key_D33C89B59072\":\"\\u003Cstring\\u003E\",\"key_7A3D79E6B933\":\"\\u003Cstring\\u003E\",\"key_5A95D874742E\":\"\\u003Cnumber\\u003E\",\"key_2B866E9B0877\":\"\\u003Cstring\\u003E\",\"key_5AEE5FC07169\":\"\\u003Cnumber\\u003E\",\"JSXM\":\"\\u003Cstring\\u003E\",\"key_DDE8CDDCABA6\":\"\\u003Cstring\\u003E\",\"key_37113336B9B0\":\"\\u003Cstring\\u003E\"},{\"SKZC\":\"\\u003Cstring\\u003E\",\"key_78AED1D2715C\":\"\\u003Cstring\\u003E\",\"key_0D2C53864B02\":\"\\u003Cstring\\u003E\",\"KCMC\":\"\\u003Cstring\\u003E\",\"XH\":\"\\u003Cstring\\u003E\",\"key_51BD9967C8CB\":\"\\u003Cstring\\u003E\",\"KCH\":\"\\u003Cstring\\u003E\",\"key_A6357BD1AF0E\":\"\\u003Cstring\\u003E\",\"key_D33C89B59072\":\"\\u003Cstring\\u003E\",\"key_7A3D79E6B933\":\"\\u003Cstring\\u003E\",\"key_5A95D874742E\":\"\\u003Cnumber\\u003E\",\"key_2B866E9B0877\":\"\\u003Cstring\\u003E\",\"key_5AEE5FC07169\":\"\\u003Cnumber\\u003E\",\"JSXM\":\"\\u003Cstring\\u003E\",\"key_DDE8CDDCABA6\":\"\\u003Cstring\\u003E\",\"key_37113336B9B0\":\"\\u003Cstring\\u003E\"}]},\"key_BC6F16EA112C\":null}",
+      "Bytes": 4842,
+      "Truncated": false,
+      "MaskedNames": 27,
+      "MediaType": "application/json",
+      "Outcome": "Json"
+    }
+  ],
+  "SkippedBusy": 21,
+  "Rejected": 25
+}

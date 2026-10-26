@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../DlutTimetable.Domain/DlutTimetable.Domain.csproj" />
+    <ProjectReference Include="../DlutTimetable.Contracts/DlutTimetable.Contracts.csproj" />
+  </ItemGroup>
+</Project>
