@@ -16,12 +16,6 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.402
-      - name: Build
-        run: |
-          dotnet restore DlutTimetable.slnx --locked-mode -r win-x64
-          if ($LASTEXITCODE -ne 0) { throw 'Restore failed' }
-          dotnet build DlutTimetable.slnx -c Release --no-restore --nologo -r win-x64
-          if ($LASTEXITCODE -ne 0) { throw 'Build failed' }
       - name: Package
         shell: pwsh
         run: ./scripts/publish-windows.ps1 -Version 0.26.0-dev
