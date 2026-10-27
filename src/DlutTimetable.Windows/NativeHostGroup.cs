@@ -452,12 +452,29 @@ public sealed class NativeHostGroup : IDisposable
             // Above the actual icon host, below the nearest ordinary application. HWND_BOTTOM alone
             // can leave a visible ball under SHELLDLL_DefView after Show Desktop changes shell order.
             var ownHandles=all.Select(w=>w.Handle).ToHashSet();ownHandles.Add(liveBackdrop.Handle);ownHandles.Add(liquidEdge.Handle);ownHandles.Add(liquidEdge.CaptureHandle);
-            var anchor = level == WindowLevel.Topmost ? -1 : shellPlacement.Anchor(ownHandles);
+            var anchorCandidates = level == WindowLevel.Topmost ? new nint[] { -1 } : shellPlacement.Anchors(ownHandles);
+            nint? groupAnchor=null;
             foreach (var w in level == WindowLevel.Topmost ? active : active.AsEnumerable().Reverse())
             {
-                NativeMethods.Check(NativeMethods.SetWindowPos(w.Handle, anchor, 0, 0, 0, 0,
-                    NativeMethods.NoActivate | NativeMethods.NoMove | NativeMethods.NoSize), "Apply desktop group level");
-                if (level != WindowLevel.Topmost) anchor = w.Handle;
+                var candidates=groupAnchor is {} prior?new[]{prior}:anchorCandidates;
+                System.ComponentModel.Win32Exception? anchorFailure=null;var positioned=false;
+                foreach(var candidate in candidates)
+                {
+                    try
+                    {
+                        NativeMethods.Check(NativeMethods.SetWindowPos(w.Handle,candidate,0,0,0,0,
+                            NativeMethods.NoActivate|NativeMethods.NoMove|NativeMethods.NoSize),"Apply desktop group level");
+                        positioned=true;break;
+                    }
+                    catch(System.ComponentModel.Win32Exception ex) when(groupAnchor is null && ex.NativeErrorCode==5)
+                    {anchorFailure=ex;}
+                }
+                if(!positioned)
+                {
+                    if(anchorFailure is not null)throw anchorFailure;
+                    throw new InvalidOperationException("桌面窗口层级暂不可用。");
+                }
+                if(level!=WindowLevel.Topmost)groupAnchor=w.Handle;
             }
             if(liveBackdrop.Visible)
                 NativeMethods.Check(NativeMethods.SetWindowPos(liveBackdrop.Handle,moving?morph.Layer.Handle:panel.Handle,0,0,0,0,

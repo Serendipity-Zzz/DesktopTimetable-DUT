@@ -35,6 +35,29 @@ public partial class App : System.Windows.Application
         }
         catch(Exception){} // Error reporting must not recursively print the original exception.
     }
+    private static void WriteStartupFailureDetails(string directory,Guid id,Exception error)
+    {
+        try
+        {
+            var logDirectory=Path.Combine(directory,"logs");Directory.CreateDirectory(logDirectory);
+            var methods=new System.Diagnostics.StackTrace(error,false).GetFrames()??[];
+            var stack=methods.Select(frame=>frame.GetMethod())
+                .Where(method=>method is not null)
+                .Select(method=>method!.DeclaringType?.FullName+"."+method!.Name)
+                .Take(24);
+            var lines=new List<string>
+            {
+                "exception="+error.GetType().FullName,
+                "hresult=0x"+error.HResult.ToString("X8"),
+            };
+            if(error is System.ComponentModel.Win32Exception native)
+            {lines.Add("win32Code="+native.NativeErrorCode);lines.Add("nativeMessage="+native.Message);}
+            lines.Add("stack:");lines.AddRange(stack);
+            var detail=string.Join(Environment.NewLine,lines);
+            File.WriteAllText(Path.Combine(logDirectory,"startup-"+id.ToString("N")+".txt"),detail);
+        }
+        catch(Exception){} // Startup diagnostics must not hide the original failure.
+    }
     private void EmergencyStop(DiagnosticCode code)
     {
         if(Interlocked.Exchange(ref emergencyShutdown,1)==0)RecordEmergencyAsync(code).GetAwaiter().GetResult();
@@ -73,11 +96,12 @@ public partial class App : System.Windows.Application
             var demo=e.Args.Contains("--desktop-demo");
             session = await DesktopSession.CreateAsync(store, root, instance, demo, startupAllowed:!demo && dataIndex<0,background:background);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             var id=Guid.NewGuid();
             if(startupDataRoot is not null)
             {
+                WriteStartupFailureDetails(startupDataRoot,id,ex);
                 try
                 {
                     var journal=new DiagnosticJournal(Path.Combine(startupDataRoot,"logs"));
@@ -86,7 +110,7 @@ public partial class App : System.Windows.Application
                 }
                 catch(Exception logError) when(logError is IOException or UnauthorizedAccessException or ArgumentException or TimeoutException){}
             }
-            if(!e.Args.Contains("--background"))MessageBox.Show($"启动失败，原数据保留。请检查文件权限或使用匹配版本。\nStartupFailed · {id:N}","大工课表");
+            if(!e.Args.Contains("--background"))MessageBox.Show($"启动失败（{ex.GetType().Name}），原数据保留。请检查程序包完整性与数据目录权限。\nStartupFailed · {id:N}","大工课表");
             Shutdown(1);
         }
     }

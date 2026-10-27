@@ -5,6 +5,7 @@ namespace DlutTimetable.Windows;
 internal static class NativeMethods
 {
     internal const uint NoActivate = 0x10, NoZOrder = 4, NoSize = 1, NoMove = 2;
+    internal const long ExTopmost=0x8,ExToolWindow=0x80;
     [StructLayout(LayoutKind.Sequential)] internal struct Point { public int X, Y; public Point(int x, int y) { X = x; Y = y; } }
     [StructLayout(LayoutKind.Sequential)] internal struct Rect { public int Left, Top, Right, Bottom; }
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)] internal struct MonitorInfo

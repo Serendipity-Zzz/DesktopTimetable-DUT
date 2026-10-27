@@ -16,7 +16,7 @@ internal sealed class DesktopShellPlacement(Action changed) : IDisposable
         subscription = NativeMethods.SetWinEventHook(3,3,0,callback,shellProcess,0,0);
         if (subscription == 0) throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
     }
-    public nint Anchor(IReadOnlySet<nint> ownWindows)
+    public IReadOnlyList<nint> Anchors(IReadOnlySet<nint> ownWindows)
     {
         var windows = new List<nint>();
         nint shellRoot = 0;
@@ -32,14 +32,20 @@ internal sealed class DesktopShellPlacement(Action changed) : IDisposable
             return true;
         },0);
         var index = windows.IndexOf(shellRoot);
-        if (index < 0) return 1; // Shell temporarily rebuilding: preserve the conservative bottom tier.
+        if (index < 0) return [1]; // Shell temporarily rebuilding: preserve the conservative bottom tier.
+        var anchors=new List<nint>();
         for (var i=index-1;i>=0;i--)
         {
             var window=windows[i];
-            if (ownWindows.Contains(window) || (NativeMethods.GetWindowLongPtr(window,-20).ToInt64() & 8) != 0) continue;
-            return window;
+            var extendedStyle=NativeMethods.GetWindowLongPtr(window,-20).ToInt64();
+            // Hidden system helper HWNDs and tool windows are not reliable insertion points;
+            // SetWindowPos may reject them with ERROR_ACCESS_DENIED and abort app startup.
+            if (ownWindows.Contains(window) || !NativeMethods.IsWindowVisible(window)
+                || (extendedStyle & (NativeMethods.ExTopmost|NativeMethods.ExToolWindow)) != 0) continue;
+            anchors.Add(window);
         }
-        return 0;
+        anchors.Add(1); // HWND_BOTTOM remains the final conservative fallback.
+        return anchors;
     }
     public void Dispose()
     { if (subscription != 0) NativeMethods.UnhookWinEvent(subscription); subscription=0;owner=0;shellProcess=0; }
