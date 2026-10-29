@@ -6,6 +6,22 @@
   <img src="src/DlutTimetable.Desktop/Assets/DlutTimetable.png" alt="大工课表图标" width="128" />
 </p>
 
+## 实际效果
+
+使用当前课表与桌面壁纸实录。
+
+**桌面常驻**：半透明周课表融入桌面，当前日期和课程安排一眼可见。
+
+![半透明周课表固定在桌面上的实际显示效果](docs/images/desktop-resident.png)
+
+**收起为悬浮球**：点击收起按钮缩成悬浮球，再点击悬浮球展开，回到原来的位置。
+
+![周课表收起为悬浮球并恢复展开的动画](docs/images/minimize-to-ball.gif)
+
+**侧边隐藏**：课表收进屏幕边缘，鼠标移到侧边条时展开，移开后自动收回。
+
+![鼠标移入侧边条展开课表、移出后自动收回的动画](docs/images/edge-docking.gif)
+
 ## 能做什么
 
 - 显示当前周课程，并醒目标出今天
